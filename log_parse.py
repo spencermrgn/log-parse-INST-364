@@ -17,3 +17,8 @@ def ingest_csv(csv_file):
     except pd.errors.ParserError:
         print(f"Error: Unable to parse {csv_file}.")
         return None
+    
+def filter_event_ids(df):
+    # filter dataframe on specified event ids.....modify ids as needed
+    filtered_df = df[df['EventID'].isin([4742, 5136])]
+    return filtered_df
