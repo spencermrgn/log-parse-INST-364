@@ -1,5 +1,6 @@
 import pandas as pd
 import sys
+import matplotlib.pyplot as plt 
 
 def ingest_csv(csv_file):
     # Read the CSV file into a pandas DataFrame
@@ -110,6 +111,17 @@ def main():
             # Append the filtered results to the output file
             filtered_df.to_csv(output_csv_file, mode='a', index=False)
             print(f"Filtered results saved to '{output_csv_file}'.")
+            
+            # Plotting the pie chart
+            plt.figure(figsize=(8, 8))
+            event_counts = filtered_df['EventID'].value_counts()
+            plt.pie(event_counts, labels=event_counts.index, autopct='%1.1f%%')
+            plt.title('Event ID Distribution')
+            plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+            plt.tight_layout()
+            plt.savefig("suspicious_event_ids.png")  # Save the plot as an image
+            plt.close()
+            print("Pie chart showing distribution of Event IDs saved as 'event_id_distribution.png'.")
         else:
             print("No rows found for specified Event IDs.")
 
